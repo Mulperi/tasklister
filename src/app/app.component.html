@@ -1,20 +1,44 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<main class="app-content">
+    <section>
+        <h1 class="header" (click)="toggleForm()">uusi merkintä</h1>
+        <!-- <h1 class="header"><span class="material-icons add-button">add_circle_outlined</span></h1> -->
+    </section>
 
+    <section *ngIf="addingNewTask" class="task-container">
+        <div class="new-task-container task__item">
+            <div class="inputs-container">
+                <p class="task__title"><input type="text" class="input__title" #title placeholder="Otsikko"></p>
+                <p class="task__description"><input type="text" #description placeholder="Kuvaus"></p>
+                <div class="new-task__component">
+                    <mat-slide-toggle class="example-margin" color="accent" #urgent>
+                        Kategoria
+                    </mat-slide-toggle>
+                </div>
+                <div class="new-task__component">
+                    <p><button class="input__submit" (click)="addItem({title: title.value, description: description.value, urgent: urgent.checked})">lisää</button></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="task-container">
+            <div class="task__item" *ngFor="let item of items | async">
+                <div class="icon-container">
+                    <span class="material-icons icon close" (click)="deleteItem(item)">clear</span>
+                    <span class="material-icons icon close" (click)="toggleDone(item)" [ngClass]="{'done__icon':item.done}"><p>done</p></span>
+                </div>
+                <div class="task__text-container">
+                    <p class="task__title" [ngClass]="{'urgent':item.urgent && !item.done, 'done':item.done}"><span (click)="toggleDone(item)">{{ item.title }}</span></p>
+                    <p class="task__description" [ngClass]="{'done':item.done}">{{ item.description }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+</main>
+<!-- <footer>
+    <p>cheesy but cool software</p>
+</footer> -->
