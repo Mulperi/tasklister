@@ -1,4 +1,4 @@
-import {NgModule} from '../../node_modules/@angular/core';
+import {NgModule} from '@angular/core';
 import {MatSlideToggleModule, MatTooltipModule} from '@angular/material';
 
 @NgModule({imports: [MatSlideToggleModule, MatTooltipModule], exports: [MatSlideToggleModule, MatTooltipModule]})

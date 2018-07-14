@@ -144,3 +144,10 @@ section {
         opacity: 0.3;
     }
 }
+
+.centered {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
