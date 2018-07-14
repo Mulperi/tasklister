@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { auth } from 'firebase';
 
 export interface Item {
    title: string;
@@ -10,6 +13,7 @@ export interface Item {
    done: boolean;
    urgent: boolean;
    priority: number;
+   author: string;
   }
 
 @Component({
@@ -19,7 +23,7 @@ export interface Item {
 export class TasklistPageComponent implements OnInit {
 
   addingNewTask = false;
-  new = {title: '', description: '', done: false, urgent: false};
+  new = {title: '', description: '', done: false, urgent: false, author: ''};
   room: string;
 
   private itemDoc: AngularFirestoreDocument<Item>;
@@ -27,7 +31,7 @@ export class TasklistPageComponent implements OnInit {
   private itemsCollection: AngularFirestoreCollection<any>;
   items;
 
-  constructor(private afs: AngularFirestore, 
+  constructor(private afs: AngularFirestore, public afAuth: AngularFireAuth,
     private route: ActivatedRoute,
     private router: Router) {
 
@@ -54,10 +58,21 @@ export class TasklistPageComponent implements OnInit {
       })));
   }
 
-  addItem() {
-    this.itemsCollection.add(this.new);
-    this.addingNewTask = !this.addingNewTask;
-    this.new = {title: '', description: '', done: false, urgent: false};
+  login() {
+    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
+  }
+  logout() {
+    this.afAuth.auth.signOut();
+  }
+
+  addItem(author) {
+    author.subscribe(data => {
+      // console.log(data);
+      this.new.author = data.displayName;
+      this.itemsCollection.add(this.new);
+      this.addingNewTask = !this.addingNewTask;
+      this.new = {title: '', description: '', done: false, urgent: false, author: ''};
+    });
   }
 
   toggleDone(item: any) {

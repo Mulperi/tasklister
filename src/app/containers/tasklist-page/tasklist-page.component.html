@@ -1,7 +1,21 @@
 <main class="app-content">
     <header>
         <div class="glow">tasklister</div>
-        <div class="icon" (click)="toggleForm()" matTooltip="Lisää uusi merkintä">+</div>
+        <div class="login">
+            <div class="centered" *ngIf="afAuth.user | async as user; else showLogin">
+                <!-- <span class="material-icons icon margin">face</span> -->
+                {{ user.displayName }}
+                <span class="icon" (click)="logout()">Logout</span>
+            </div>
+            <ng-template #showLogin>
+                <div class="centered">
+                    <div class="icon" (click)="login()">
+                        Login with Google
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+        <div *ngIf="afAuth.user | async as user" class="icon" (click)="toggleForm()" matTooltip="Lisää uusi merkintä">+</div>
     </header>
     <section *ngIf="addingNewTask" class="task-container">
         <div class="new-task-container">
@@ -18,23 +32,27 @@
                 </div>
                 <div class="new-task__component">
                     <p>
-                        <button class="input__submit icon" (click)="addItem()" [disabled]="new.title.length<1">Add</button></p>
+                        <button class="input__submit icon" (click)="addItem(afAuth.user)" [disabled]="new.title.length<1">Add</button></p>
                 </div>
             </div>
         </div>
     </section>
 
-
     <section>
-        <div class="task-container ">
+
+    </section>
+
+    <section *ngIf="afAuth.user | async as user">
+        <div class=" task-container ">
             <div class="task__item " *ngFor="let item of items | async ">
                 <div class="icon-container ">
-                    <span class="material-icons icon margin" (click)="deleteItem(item)" matTooltip="Poista">clear</span>
-                    <span class="material-icons icon margin" (click)="toggleDone(item)" matTooltip="Merkitse tehdyksi" [ngClass]="{ 'done__icon':item.done}"><p>done</p></span>
+                    <span class="material-icons icon margin " (click)="deleteItem(item) " matTooltip="Poista ">clear</span>
+                    <span class="material-icons icon margin " (click)="toggleDone(item) " matTooltip="Merkitse tehdyksi " [ngClass]="{ 'done__icon':item.done} "><p>done</p></span>
                 </div>
                 <div class="task__text-container ">
                     <p class="task__title " [ngClass]="{ 'urgent':item.urgent && !item.done, 'done':item.done} "><span (click)="toggleDone(item) ">{{ item.title }}</span></p>
-                    <p class="task__description " [ngClass]="{ 'done':item.done}">{{ item.description }}</p>
+                    <p class="task__description " [ngClass]="{ 'done':item.done} ">{{ item.description }}</p>
+                    <p class="task__description icon" [ngClass]="{ 'done':item.done} ">{{ item.author }}</p>
                 </div>
             </div>
         </div>

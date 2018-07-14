@@ -33,6 +33,10 @@ header {
     font-size: 2rem;
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+    .login {
+        font-size: 1rem;
+    }
 }
 
 .glow {
@@ -122,27 +126,30 @@ section {
         justify-content: center;
         text-align: center;
     }
-    input {
-        text-align: center;
-        background: transparent;
-        border: 0;
-        border-bottom: 1px solid $babyblue;
-        color: $babyblue;
-        font-size: 2rem;
-        outline: none;
-    }
-    button {
-        background: transparent;
-        border: 1px solid $babyblue;
-        border-radius: 20px;
-        font-size: 1rem;
-        color: $babyblue;
-        padding: 0 1rem;
-        text-align: center;
-    }
-    button:disabled {
-        opacity: 0.3;
-    }
+}
+
+input {
+    text-align: center;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid $babyblue;
+    color: $babyblue;
+    font-size: 2rem;
+    outline: none;
+}
+
+button {
+    background: transparent;
+    border: 1px solid $babyblue;
+    border-radius: 20px;
+    font-size: 1rem;
+    color: $babyblue;
+    padding: 0 1rem;
+    text-align: center;
+}
+
+button:disabled {
+    opacity: 0.3;
 }
 
 .centered {
