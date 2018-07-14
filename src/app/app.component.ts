@@ -18,6 +18,7 @@ export interface Item {
 export class AppComponent implements OnInit {
 
   addingNewTask = false;
+  new = {title: '', description: '', done: false, urgent: false};
 
   private itemDoc: AngularFirestoreDocument<Item>;
   item: Observable<Item>;
@@ -46,9 +47,11 @@ export class AppComponent implements OnInit {
     // this.items.subscribe(data => console.log(data));
   }
 
-  addItem(item: any) {
-    this.itemsCollection.add(item);
+  addItem() {
+    // console.log(this.new);
+    this.itemsCollection.add(this.new);
     this.addingNewTask = !this.addingNewTask;
+    this.new = {title: '', description: '', done: false, urgent: false};
   }
 
   toggleDone(item: any) {

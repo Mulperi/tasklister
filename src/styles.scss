@@ -19,9 +19,24 @@ body {
     color: $babyblue;
     display: flex;
     flex-direction: column;
-    // align-items: center;
     font-family: 'Quicksand', sans-serif;
-    padding: $spacing-small;
+    padding: 0;
+    margin: 0;
+}
+
+header {
+    background: $babyblue / 3.5;
+    font-family: 'Quicksand', sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: $spacing-large;
+    font-size: 2rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.glow {
+    text-shadow: 0px 0px 20px $babyblue;
 }
 
 section {
@@ -32,7 +47,6 @@ section {
 }
 
 .task-container {
-    // max-width: 640px;
     // border: 1px solid $babyblue;
     border-radius: 4px;
     display: flex;
@@ -65,65 +79,57 @@ section {
         display: flex;
         flex-direction: column;
     }
-    .icon {
-        margin: 0.5rem;
-        cursor: pointer;
-    }
-    .urgent {
-        color: pink;
-    }
-    .done {
-        opacity: 0.15;
-    }
-    .done__icon {
-        p {
-            color: lightgreen;
-            text-shadow: 0 0 10px lightgreen;
-        }
-    }
-    .close {
-        color: $babyblue / 2;
-    }
-    .close:hover {
-        color: $babyblue;
-        text-shadow: 0px 0px 20px $babyblue;
-    }
 }
 
-.header {
-    font-family: 'Quicksand', sans-serif;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-    text-shadow: 0px 0px 20px $babyblue;
+.task__item:hover {
+    background: $babyblue / 3;
+}
+
+.icon {
     cursor: pointer;
+    color: $babyblue / 2;
+}
+
+.icon:hover {
+    color: $babyblue;
+    text-shadow: 0px 0px 20px $babyblue;
+}
+
+.margin {
+    margin: 0.5rem;
+}
+
+.urgent {
+    color: pink;
+}
+
+.done {
+    opacity: 0.15;
+}
+
+.done__icon {
+    p {
+        color: lightgreen;
+        text-shadow: 0 0 10px lightgreen;
+    }
 }
 
 .new-task-container {
-    // display: flex;
-    // justify-content: center;
-    // align-items: center;
-    // box-shadow: 0 0 50px $babyblue;
-    // margin: 2rem;
-    // padding: 1rem;
-    // border: 1px solid $babyblue;
-    // border-radius: 20px;
+    background: $babyblue / 3.5;
+    border-radius: 20px;
     .new-task__component {
-        // margin: 1rem;
-        // border: 1px solid red;
         display: flex;
         justify-content: center;
-        padding: 1rem 0;
+        text-align: center;
     }
     input {
         text-align: center;
         background: transparent;
         border: 0;
-        border-bottom: 0px solid $babyblue;
+        border-bottom: 1px solid $babyblue;
         color: $babyblue;
         font-size: 2rem;
         outline: none;
-        // margin: 1rem;
     }
     button {
         background: transparent;
@@ -131,9 +137,10 @@ section {
         border-radius: 20px;
         font-size: 1rem;
         color: $babyblue;
-        // margin: 1rem 0;
-        // width: 100%;
         padding: 0 1rem;
         text-align: center;
+    }
+    button:disabled {
+        opacity: 0.3;
     }
 }

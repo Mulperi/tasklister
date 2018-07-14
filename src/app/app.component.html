@@ -1,42 +1,44 @@
 <main class="app-content">
-    <section>
-        <h1 class="header" (click)="toggleForm()">uusi merkintä</h1>
-        <!-- <h1 class="header"><span class="material-icons add-button">add_circle_outlined</span></h1> -->
-    </section>
-
+    <header>
+        <div class="glow">tasklister</div>
+        <div class="icon" (click)="toggleForm()" matTooltip="Lisää uusi merkintä">+</div>
+    </header>
     <section *ngIf="addingNewTask" class="task-container">
-        <div class="new-task-container task__item">
+        <div class="new-task-container">
             <div class="inputs-container">
-                <p class="task__title"><input type="text" class="input__title" #title placeholder="Otsikko"></p>
-                <p class="task__description"><input type="text" #description placeholder="Kuvaus"></p>
+                <div class="new-task__component glow">
+                    <p>Add new task</p>
+                </div>
+                <p class="task__title"><input type="text" [(ngModel)]="new.title" placeholder="Title"></p>
+                <p class="task__description"><input type="text" [(ngModel)]="new.description" placeholder="Description"></p>
                 <div class="new-task__component">
-                    <mat-slide-toggle class="example-margin" color="accent" #urgent>
-                        Kategoria
+                    <mat-slide-toggle class="example-margin" color="accent" [(ngModel)]="new.urgent">
+                        Priority
                     </mat-slide-toggle>
                 </div>
                 <div class="new-task__component">
-                    <p><button class="input__submit" (click)="addItem({title: title.value, description: description.value, urgent: urgent.checked})">lisää</button></p>
+                    <p>
+                        <button class="input__submit icon" (click)="addItem()" [disabled]="new.title.length<1">Add</button></p>
                 </div>
             </div>
         </div>
     </section>
+
 
     <section>
-        <div class="task-container">
-            <div class="task__item" *ngFor="let item of items | async">
-                <div class="icon-container">
-                    <span class="material-icons icon close" (click)="deleteItem(item)">clear</span>
-                    <span class="material-icons icon close" (click)="toggleDone(item)" [ngClass]="{'done__icon':item.done}"><p>done</p></span>
+        <div class="task-container ">
+            <div class="task__item " *ngFor="let item of items | async ">
+                <div class="icon-container ">
+                    <span class="material-icons icon margin" (click)="deleteItem(item)" matTooltip="Poista">clear</span>
+                    <span class="material-icons icon margin" (click)="toggleDone(item)" matTooltip="Merkitse tehdyksi" [ngClass]="{ 'done__icon':item.done}"><p>done</p></span>
                 </div>
-                <div class="task__text-container">
-                    <p class="task__title" [ngClass]="{'urgent':item.urgent && !item.done, 'done':item.done}"><span (click)="toggleDone(item)">{{ item.title }}</span></p>
-                    <p class="task__description" [ngClass]="{'done':item.done}">{{ item.description }}</p>
+                <div class="task__text-container ">
+                    <p class="task__title " [ngClass]="{ 'urgent':item.urgent && !item.done, 'done':item.done} "><span (click)="toggleDone(item) ">{{ item.title }}</span></p>
+                    <p class="task__description " [ngClass]="{ 'done':item.done}">{{ item.description }}</p>
                 </div>
             </div>
         </div>
     </section>
-
-
 
 </main>
 <!-- <footer>
