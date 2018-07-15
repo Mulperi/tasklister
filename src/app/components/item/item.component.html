@@ -1,0 +1,15 @@
+<div class="task">
+    <div class="task__icon-container">
+        <span class="material-icons icon margin" (click)="onDelete(item)" matTooltip="Delete item">clear</span>
+        <span class="material-icons icon margin" (click)="onToggleDone(item)" matTooltip="Mark as done" [ngClass]="{'done__icon':item.done}">
+            <p>done</p>
+        </span>
+    </div>
+    <div>
+        <p class="task__title" [ngClass]="{'urgent':item.urgent && !item.done, 'done':item.done}">
+            <span (click)="onToggleDone(item) ">{{ item.title }}</span>
+        </p>
+        <p class="task__description" [ngClass]="{'done':item.done}">{{ item.description }}</p>
+        <p class="task__description author" [ngClass]="{'done':item.done}">{{ item.author }}</p>
+    </div>
+</div>

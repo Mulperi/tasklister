@@ -1,31 +1,26 @@
+import { Item } from './../../models/item.model';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+  AngularFirestoreDocument
+} from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { auth } from 'firebase';
 // import '@firebase/auth';
 // import '@firebase/firestore';
-
-export interface Item {
-   title: string;
-   description: string;
-   done: boolean;
-   urgent: boolean;
-   priority: number;
-   author: string;
-  }
 
 @Component({
   selector: 'app-tasklist-page',
   templateUrl: 'tasklist-page.component.html'
 })
 export class TasklistPageComponent implements OnInit {
-
   addingNewTask = false;
-  new = {title: '', description: '', done: false, urgent: false, author: ''};
+  new = { title: '', description: '', done: false, urgent: false, author: '' };
   room: string;
 
   private itemDoc: AngularFirestoreDocument<Item>;
@@ -33,31 +28,39 @@ export class TasklistPageComponent implements OnInit {
   private itemsCollection: AngularFirestoreCollection<any>;
   items;
 
-  constructor(private afs: AngularFirestore, public afAuth: AngularFireAuth,
+  constructor(
+    private afs: AngularFirestore,
+    public afAuth: AngularFireAuth,
     private route: ActivatedRoute,
-    private router: Router) {
-
+    private router: Router
+  ) {
     // this.itemDoc = afs.doc<any>('rooms/1/tasklist/');
     // this.item = this.itemDoc.valueChanges();
   }
 
   ngOnInit() {
-    this.route.params.pipe(
-      map((params: ParamMap) => params['room']))
+    this.route.params
+      .pipe(map((params: ParamMap) => params['room']))
       .subscribe(room => {
         this.room = room;
-        this.itemsCollection = this.afs.collection<any>(`rooms/${room}/tasklist`, ref => {
-          return ref.orderBy('urgent', 'desc').limit(50);
-        });
+        this.itemsCollection = this.afs.collection<any>(
+          `rooms/${room}/tasklist`,
+          ref => {
+            return ref.orderBy('urgent', 'desc').limit(50);
+          }
+        );
       });
 
-          // this.items = this.itemsCollection.valueChanges();
+    // this.items = this.itemsCollection.valueChanges();
     this.items = this.itemsCollection.snapshotChanges().pipe(
-      map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as Item;
-        const id = a.payload.doc.id;
-        return { id, ...data };
-      })));
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data() as Item;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
+      )
+    );
   }
 
   login() {
@@ -73,15 +76,23 @@ export class TasklistPageComponent implements OnInit {
       this.new.author = data.displayName;
       this.itemsCollection.add(this.new);
       this.addingNewTask = !this.addingNewTask;
-      this.new = {title: '', description: '', done: false, urgent: false, author: ''};
+      this.new = {
+        title: '',
+        description: '',
+        done: false,
+        urgent: false,
+        author: ''
+      };
     });
   }
 
-  toggleDone(item: any) {
-    this.afs.doc<any>(`rooms/${this.room}/tasklist/${item.id}`).update({ done: !item.done });
+  onToggleDone(item: any) {
+    this.afs
+      .doc<any>(`rooms/${this.room}/tasklist/${item.id}`)
+      .update({ done: !item.done });
   }
 
-  deleteItem(item: any) {
+  onDelete(item: any) {
     this.afs.doc<any>(`rooms/${this.room}/tasklist/${item.id}`).delete();
   }
 

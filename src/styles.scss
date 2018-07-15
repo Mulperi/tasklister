@@ -1,165 +1,155 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 @import url('https://fonts.googleapis.com/css?family=Markazi+Text|Quicksand');
-$spacing-small: 0.25rem;
-$spacing-medium: 0.5rem;
-$spacing-large: 1rem;
-$babyblue: #CDFFFF;
-$lightblue: darken(#4FD5D6,
-20%);
-$heath: #400D12;
-$background: #707070;
+@import 'style-variables';
+
 html {
-    font-size: 16px;
+  font-size: 16px;
 }
 
 body {
-    background: $babyblue / 4;
-    color: $babyblue;
-    display: flex;
-    flex-direction: column;
-    font-family: 'Quicksand', sans-serif;
-    padding: 0;
-    margin: 0;
+  background: $babyblue / 4;
+  color: $babyblue;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Quicksand', sans-serif;
+  padding: 0;
+  margin: 0;
 }
 
 header {
-    background: $babyblue / 3.5;
-    font-family: 'Quicksand', sans-serif;
-    text-align: center;
-    margin: 0;
-    padding: $spacing-large;
-    font-size: 2rem;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    .login {
-        font-size: 1rem;
-    }
+  background: $babyblue / 3.5;
+  font-family: 'Quicksand', sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: $spacing-large;
+  font-size: 2rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  .login {
+    font-size: 1rem;
+  }
 }
 
 .glow {
-    text-shadow: 0px 0px 20px $babyblue;
+  text-shadow: 0px 0px 20px $babyblue;
 }
 
 section {
-    padding: $spacing-small;
-    margin: $spacing-small;
-    // border: 1px solid $babyblue;
-    border-radius: 20px;
+  padding: $spacing-small;
+  margin: $spacing-small;
+  // border: 1px solid $babyblue;
+  border-radius: 20px;
 }
 
 .task-container {
-    // border: 1px solid $babyblue;
-    border-radius: 4px;
-    display: flex;
+  border: 0px solid $babyblue;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media screen and (min-width: 640px) {
+  .task-container {
     flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.task__item {
-    background: $babyblue / 3.5;
-    border: 0px solid $babyblue;
-    border-radius: 4px;
-    cursor: pointer;
-    padding: $spacing-medium;
-    margin: $spacing-small;
-    max-width: 480px;
-    display: flex;
-    .task__title {
-        font-size: 2rem;
-        cursor: pointer;
-        user-select: none;
-    }
-    .task__description {
-        margin-top: 0.5rem;
-    }
-    p {
-        margin: 0;
-        padding: 0;
-    }
-    .icon-container {
-        display: flex;
-        flex-direction: column;
-    }
-}
-
-.task__item:hover {
-    background: $babyblue / 3;
+  }
 }
 
 .icon {
-    cursor: pointer;
-    color: $babyblue / 2;
+  cursor: pointer;
+  color: $babyblue / 2;
 }
 
 .icon:hover {
-    color: $babyblue;
-    text-shadow: 0px 0px 20px $babyblue;
+  color: $babyblue;
+  text-shadow: 0px 0px 20px $babyblue;
 }
 
 .margin {
-    margin: 0.5rem;
+  margin: 0.5rem;
 }
 
 .urgent {
-    color: pink;
+  color: pink;
 }
 
 .done {
-    opacity: 0.15;
+  opacity: 0.15;
 }
 
 .done__icon {
-    p {
-        color: lightgreen;
-        text-shadow: 0 0 10px lightgreen;
-    }
+  p {
+    color: lightgreen;
+    text-shadow: 0 0 10px lightgreen;
+  }
 }
 
 .author {
-    color: $babyblue / 2;
-}
-
-.new-task-container {
-    background: $babyblue / 3.5;
-    border-radius: 20px;
-    .new-task__component {
-        display: flex;
-        justify-content: center;
-        text-align: center;
-    }
+  color: $babyblue / 2;
 }
 
 input {
-    text-align: center;
-    background: transparent;
-    border: 0;
-    border-bottom: 1px solid $babyblue;
-    color: $babyblue;
-    font-size: 2rem;
-    outline: none;
+  background: transparent;
+  border: 0;
+  // border-bottom: 1px solid $babyblue;
+  color: $babyblue;
+  font-size: 1.5rem;
+  outline: none;
 }
 
 button {
-    background: transparent;
-    border: 1px solid $babyblue;
-    border-radius: 20px;
-    font-size: 1rem;
-    color: $babyblue;
-    padding: 0 1rem;
-    text-align: center;
+  background: transparent;
+  border: 0px solid $babyblue;
+  border-radius: 20px;
+  font-size: 1rem;
+  color: $babyblue;
+  padding: 0 1rem;
+  // text-align: center;
 }
 
 button:disabled {
-    opacity: 0.3;
+  opacity: 0.3;
 }
 
 .centered {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.task {
+  background: $babyblue / 3.5;
+  border: 0px solid $babyblue;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: $spacing-medium;
+  margin: $spacing-small;
+  max-width: 640px;
+  display: flex;
+  .task__title {
+    font-size: 2rem;
+    cursor: pointer;
+    user-select: none;
+  }
+  .task__description {
+    margin-top: 0.5rem;
+  }
+  p {
+    margin: 0;
+    padding: 0;
+  }
+  .task__icon-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.task:hover {
+  background: $babyblue / 3;
 }
