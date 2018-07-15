@@ -63,6 +63,7 @@ section {
     background: $babyblue / 3.5;
     border: 0px solid $babyblue;
     border-radius: 4px;
+    cursor: pointer;
     padding: $spacing-medium;
     margin: $spacing-small;
     max-width: 480px;
@@ -116,6 +117,10 @@ section {
         color: lightgreen;
         text-shadow: 0 0 10px lightgreen;
     }
+}
+
+.author {
+    color: $babyblue / 2;
 }
 
 .new-task-container {

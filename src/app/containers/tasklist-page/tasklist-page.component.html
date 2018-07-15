@@ -52,7 +52,7 @@
                 <div class="task__text-container ">
                     <p class="task__title " [ngClass]="{ 'urgent':item.urgent && !item.done, 'done':item.done} "><span (click)="toggleDone(item) ">{{ item.title }}</span></p>
                     <p class="task__description " [ngClass]="{ 'done':item.done} ">{{ item.description }}</p>
-                    <p class="task__description icon" [ngClass]="{ 'done':item.done} ">{{ item.author }}</p>
+                    <p class="task__description author" [ngClass]="{ 'done':item.done} ">{{ item.author }}</p>
                 </div>
             </div>
         </div>

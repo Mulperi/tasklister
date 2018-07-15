@@ -6,6 +6,8 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { auth } from 'firebase';
+// import '@firebase/auth';
+// import '@firebase/firestore';
 
 export interface Item {
    title: string;

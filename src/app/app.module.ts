@@ -35,7 +35,7 @@ const appRoutes: Routes = [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule.enablePersistence(), // enablePersistence = offline tilassa toimii
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
-    AngularFireStorageModule, // imports firebase/storage only needed for storage features
+    // AngularFireStorageModule, // imports firebase/storage only needed for storage features
     FormsModule,
     MaterialModule
   ],
