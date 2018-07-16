@@ -74,7 +74,6 @@ export class TasklistPageComponent implements OnInit {
   }
 
   addItem(author) {
-    console.log('adding item...');
     author.subscribe(data => {
       // console.log(data);
       this.new.author = data.displayName;

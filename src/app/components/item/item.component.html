@@ -1,7 +1,7 @@
 <div class="task">
     <div class="task__icon-container">
         <span class="material-icons icon margin" (click)="onDelete(item)" matTooltip="Delete item">clear</span>
-        <span class="material-icons icon margin" (click)="onEdit(item)" matTooltip="Edit item">
+        <span *ngIf="user.displayName == item.author" class="material-icons icon margin" (click)="onEdit(item)" matTooltip="Edit item">
             <p>edit</p>
         </span>
         <span class="material-icons icon margin" (click)="onToggleDone(item)" matTooltip="Mark as done" [ngClass]="{'done__icon':item.done}">

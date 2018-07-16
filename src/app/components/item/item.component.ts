@@ -8,6 +8,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class ItemComponent {
   @Input() item: Item;
+  @Input() user;
 
   @Output() delete = new EventEmitter<any>();
   @Output() edit = new EventEmitter<any>();
@@ -18,7 +19,6 @@ export class ItemComponent {
   }
 
   onEdit() {
-    console.log('editing');
     this.edit.emit();
   }
 
