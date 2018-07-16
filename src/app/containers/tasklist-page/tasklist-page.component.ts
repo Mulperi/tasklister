@@ -46,7 +46,9 @@ export class TasklistPageComponent implements OnInit {
         this.itemsCollection = this.afs.collection<any>(
           `rooms/${room}/tasklist`,
           ref => {
-            return ref.orderBy('urgent', 'desc').limit(50);
+            return ref.orderBy('urgent', 'desc');
+            // .limit(50)
+            // .where('done', '==', false)
           }
         );
       });
@@ -71,6 +73,7 @@ export class TasklistPageComponent implements OnInit {
   }
 
   addItem(author) {
+    console.log('adding item...');
     author.subscribe(data => {
       // console.log(data);
       this.new.author = data.displayName;
@@ -90,6 +93,9 @@ export class TasklistPageComponent implements OnInit {
     this.afs
       .doc<any>(`rooms/${this.room}/tasklist/${item.id}`)
       .update({ done: !item.done });
+  }
+  onUpdate(item: any) {
+    this.afs.doc<any>(`rooms/${this.room}/tasklist/${item.id}`).update(item);
   }
 
   onDelete(item: any) {

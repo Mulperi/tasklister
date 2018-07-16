@@ -1,83 +1,55 @@
-<main class="app-content">
-    <header>
-        <div class="glow">tasklister</div>
-        <div class="login">
-            <div class="centered" *ngIf="afAuth.user | async as user; else showLogin">
-                <!-- <span class="material-icons icon margin">face</span> -->
-                {{ user.displayName }}
-                <span class="icon" (click)="logout()">Logout</span>
-            </div>
-            <ng-template #showLogin>
-                <div class="centered">
-                    <div class="icon" (click)="login()">
-                        Login with Google
-                    </div>
-                </div>
-            </ng-template>
+<header>
+    <div class="glow">tasklister</div>
+    <div class="login">
+        <div class="centered" *ngIf="afAuth.user | async as user; else showLogin">
+            {{ user.displayName }}
+            <span class="icon" (click)="logout()">Logout</span>
         </div>
-        <!-- <div *ngIf="afAuth.user | async as user" class="icon" (click)="toggleForm()" matTooltip="Lisää uusi merkintä">+</div> -->
-    </header>
-    <!-- <section *ngIf="addingNewTask" class="task-container">
-        <div class="new-task-container">
-            <div class="inputs-container">
-                <div class="new-task__component glow">
-                    <p>Add new task</p>
+        <ng-template #showLogin>
+            <div class="centered">
+                <div class="icon" (click)="login()">
+                    Login with Google
                 </div>
-                <p class="task__title">
+            </div>
+        </ng-template>
+    </div>
+</header>
+
+<section *ngIf="afAuth.user | async as user">
+    <div class="task-container">
+        <div *ngFor="let item of items | async">
+            <app-item [item]="item" *ngIf="!item.done" (delete)="onDelete(item)" (toggleDone)="onToggleDone(item)"></app-item>
+        </div>
+
+        <div class="task" *ngIf="afAuth.user | async as user">
+            <div class="task__icon-container">
+                <span class="material-icons icon margin" matTooltip="Add item" (click)="toggleForm()">add</span>
+            </div>
+            <div *ngIf="addingNewTask">
+                <p>
                     <input type="text" [(ngModel)]="new.title" placeholder="Title">
                 </p>
-                <p class="task__description">
+                <p>
                     <input type="text" [(ngModel)]="new.description" placeholder="Description">
                 </p>
-                <div class="new-task__component">
-                    <mat-slide-toggle class="example-margin" color="accent" [(ngModel)]="new.urgent">
-                        Priority
-                    </mat-slide-toggle>
-                </div>
-                <div class="new-task__component">
-                    <p>
-                        <button class="input__submit icon" (click)="addItem(afAuth.user)" [disabled]="new.title.length<1">Add</button>
-                    </p>
-                </div>
+                <p class="task__description author">{{ user.displayName }}</p>
+            </div>
+            <div class="task__icon-container" *ngIf="addingNewTask">
+                <button (click)="addItem(afAuth.user)" [disabled]="new.title.length<1">
+                    <span class="material-icons icon margin" matTooltip="Save">save</span>
+                </button>
+                <mat-slide-toggle class="example-margin" color="accent" [(ngModel)]="new.urgent">
+                    Priority
+                </mat-slide-toggle>
             </div>
         </div>
-    </section> -->
+    </div>
+</section>
 
-
-    <section *ngIf="afAuth.user | async as user">
-        <div class="task-container">
-            <app-item *ngFor="let item of items | async" [item]="item" (delete)="onDelete(item)" (toggleDone)="onToggleDone(item)"></app-item>
-
-
-
-            <div class="task" *ngIf="afAuth.user | async as user">
-                <div class="task__icon-container">
-                    <span class="material-icons icon margin" matTooltip="Add item" (click)="toggleForm()">add</span>
-                </div>
-                <div *ngIf="addingNewTask">
-                    <p>
-                        <input type="text" [(ngModel)]="new.title" placeholder="Title">
-                    </p>
-                    <p>
-                        <input type="text" [(ngModel)]="new.description" placeholder="Description">
-                    </p>
-                    <p class="task__description author">{{ user.displayName }}</p>
-                </div>
-                <div class="task__icon-container" *ngIf="addingNewTask">
-                    <button (click)="addItem(afAuth.user)" [disabled]="new.title.length<1">
-                        <span class="material-icons icon margin" matTooltip="Save">save</span>
-                    </button>
-                    <mat-slide-toggle class="example-margin" color="accent" [(ngModel)]="new.urgent">
-                        Priority
-                    </mat-slide-toggle>
-                </div>
-            </div>
-
-
+<section *ngIf="afAuth.user | async as user">
+    <div class="task-container">
+        <div *ngFor="let item of items | async">
+            <app-item [item]="item" *ngIf="item.done" (delete)="onDelete(item)" (toggleDone)="onToggleDone(item)"></app-item>
         </div>
-    </section>
-
-</main>
-<!-- <footer>
-        <p>cheesy but cool software</p>
-    </footer> -->
+    </div>
+</section>
