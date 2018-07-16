@@ -18,10 +18,10 @@
 <section *ngIf="afAuth.user | async as user">
     <div class="task-container">
         <div *ngFor="let item of items | async">
-            <app-item [item]="item" *ngIf="!item.done" (delete)="onDelete(item)" (toggleDone)="onToggleDone(item)"></app-item>
+            <app-item [item]="item" *ngIf="!item.done" (delete)="onDelete(item)" (toggleDone)="onToggleDone(item)" (edit)="onEdit(item)"></app-item>
         </div>
 
-        <div class="task" *ngIf="afAuth.user | async as user">
+        <div class="task borders" *ngIf="afAuth.user | async as user">
             <div class="task__icon-container">
                 <span class="material-icons icon margin" matTooltip="Add item" (click)="toggleForm()">add</span>
             </div>
@@ -49,7 +49,7 @@
 <section *ngIf="afAuth.user | async as user">
     <div class="task-container">
         <div *ngFor="let item of items | async">
-            <app-item [item]="item" *ngIf="item.done" (delete)="onDelete(item)" (toggleDone)="onToggleDone(item)"></app-item>
+            <app-item [item]="item" *ngIf="item.done" (delete)="onDelete(item)" (toggleDone)="onToggleDone(item)" (edit)="onEdit(item)"></app-item>
         </div>
     </div>
 </section>

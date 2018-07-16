@@ -20,6 +20,7 @@ import { auth } from 'firebase';
 })
 export class TasklistPageComponent implements OnInit {
   addingNewTask = false;
+  editingTask = false;
   new = { title: '', description: '', done: false, urgent: false, author: '' };
   room: string;
 
@@ -77,15 +78,12 @@ export class TasklistPageComponent implements OnInit {
     author.subscribe(data => {
       // console.log(data);
       this.new.author = data.displayName;
-      this.itemsCollection.add(this.new);
-      this.addingNewTask = !this.addingNewTask;
-      this.new = {
-        title: '',
-        description: '',
-        done: false,
-        urgent: false,
-        author: ''
-      };
+      if (this.editingTask) {
+        this.update(this.new);
+      } else {
+        this.itemsCollection.add(this.new);
+      }
+      this.resetForm();
     });
   }
 
@@ -94,7 +92,14 @@ export class TasklistPageComponent implements OnInit {
       .doc<any>(`rooms/${this.room}/tasklist/${item.id}`)
       .update({ done: !item.done });
   }
-  onUpdate(item: any) {
+
+  onEdit(item: any) {
+    this.new = item;
+    this.addingNewTask = true;
+    this.editingTask = true;
+  }
+
+  update(item: any) {
     this.afs.doc<any>(`rooms/${this.room}/tasklist/${item.id}`).update(item);
   }
 
@@ -103,6 +108,18 @@ export class TasklistPageComponent implements OnInit {
   }
 
   toggleForm() {
+    this.resetForm();
+    this.editingTask = false;
+  }
+
+  resetForm() {
     this.addingNewTask = !this.addingNewTask;
+    this.new = {
+      title: '',
+      description: '',
+      done: false,
+      urgent: false,
+      author: ''
+    };
   }
 }
